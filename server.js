@@ -1,13 +1,45 @@
-const express = require('express') // import the express package
+// SETUP
+const express = require('express')
+const server = express()
+const PORT = process.env.PORT || 4420
 
-const server = express() // creates the server
+// MIDDLEWARE
+server.use(require('cors')())
+server.use(require('helmet')())
+server.use(express.json())
 
-// handle requests to the root of the api, the / route
+// ROUTES
 server.get('/', (req, res) => {
-  res.send('Hello from Express')
+  res.send('API is running, bruh.')
 })
 
-// watch for connections on port 5000
-server.listen(5000, () =>
-  console.log('Server running on http://localhost:5000')
-)
+server.listen(PORT, () => {
+  console.clear()
+  console.log(`
+        ██        ████      ██            
+            ██  ██  ██████      ██        
+  ██  ████  ████  ██████████████          
+      ████  ████  ██████████████    ██    
+    ████████████████████████████████      
+  ██████████████████████████████████           █████████░  ████████░  ████████░  ██████████░
+    ██████████████████████████████████             ██░     ██░        ██░            ██░
+  ██████████░░██████████░░██████████████           ██░     ████████░  ████████░      ██░
+    ████████████░░████░░░░██░░████████             ██░     ██░              ██░      ██░
+  ██  ████░░░░░░░░░░██░░░░░░░░░░██████             ██░     ████████░  ████████░      ██░
+  ██  ████░░████░░░░██░░░░░░░░░░██████    
+      ██░░░░████░░░░░░░░░░░░░░░░██  ████        ╔═══╗  ╔═══╗  ══╦══
+      ██░░░░████░░░░██░░░░░░░░░░██    ████      ╠═══╣  ╠═══╝    ║
+      ██░░░░████░░░░░░░░░░░░░░░░██    ████      ╩   ╩  ╩      ══╩══
+      ██░░░░████░░░░░░░░░░░░░░░░██    ████
+      ██░░░░████░░░░░░░░░░░░░░░░██    ████
+      ██░░░░░░██░░░░░░░░░░░░░░░░██    ████
+      ██░░░░░░░░░░░░░░░░░░░░░░░░██  ████  
+      ██░░░░░░░░░░░░░░░░░░░░░░░░██████    
+      ██░░░░░░░░░░░░░░░░░░░░░░░░████      
+      ██░░░░░░░░░░░░░░░░░░░░░░░░██        
+      ████░░░░░░░░░░░░░░░░░░░░░░██        
+      ████████████████████████████        
+      ██                        ██                                                PORT ${PORT}  
+      ████████████████████████████`)
+})
+
