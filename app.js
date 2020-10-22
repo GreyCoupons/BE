@@ -2,12 +2,21 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const {graphqlHTTP} = require('express-graphql') //export valid middleware function
 const {buildSchema} = require('graphql')
+const {Client} = require('pg')
 require('./motd/motd')
+
 const PORT = 4444
-
 const app = express()
-
 const events = []
+
+const client = new Client({
+    host: 'localhost',
+    user: 'postgres',
+    password: 'idontknow',
+    database: 'test'
+})
+
+client.connect()
 
 app.use(bodyParser.json())
 
