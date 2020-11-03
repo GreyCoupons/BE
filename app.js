@@ -1,73 +1,24 @@
+// DEPENDENCIES
+require('dotenv').config()
 const express = require('express')
-const bodyParser = require('body-parser')
-const {graphqlHTTP} = require('express-graphql') //export valid middleware function
-const {buildSchema} = require('graphql')
-const {Client} = require('pg')
-require('./motd/motd')
-
-const PORT = 4444
+const cors = require('cors')
+const helmet = require('helmet')
 const app = express()
-const events = []
 
-const client = new Client({
-    host: 'localhost',
-    user: 'postgres',
-    password: 'idontknow',
-    database: 'test'
-})
+// IMPORTS
+require('./motd/motd')
+const PORT = process.env.PORT || 3333
+const routes = require('./endpoints')
+const {deconstruct} = require('./tools/deconstructor')
+routes(app)
 
-client.connect()
+app.use(helmet())
+app.use(cors())
+app.use(express.json())
 
-app.use(bodyParser.json())
-
-app.use(
-    '/api',
-    graphqlHTTP({
-        schema: buildSchema(`
-            type Event {
-                _id: ID!
-                title: String!
-                description: String!
-                price: Float!
-                date: String!
-            }
-
-            input EventInput {
-                title: String!
-                description: String!
-                price: Float!
-                date: String
-            }
-
-            type RootQuery {
-                events: [Event!]!
-            }
-            type RootMutation {
-                createEvent(eventInput: EventInput): Event
-            }
-            schema {
-                query: RootQuery
-                mutation: RootMutation
-            }
-        `),
-        rootValue: {
-            events: () => events,
-            createEvent: (args) => {
-                const event = {
-                    _id: Math.random().toString(),
-                    title: args.eventInput.title,
-                    description: args.eventInput.description,
-                    price: +args.eventInput.price,
-                    date: new Date().toISOString()
-                }
-                events.push(event)
-                return event
-            },
-        },
-        graphiql: true
-}))
-
+app.post('/api', deconstruct)
 app.listen(PORT, () => {
     console.clear()
     console.log(motd(PORT))
 })
+

@@ -1,21 +1,20 @@
-const { isRequiredArgument } = require("graphql");
-
+// Update with your config settings.
 require('dotenv').config()
 
 module.exports = {
-    developement: {
-        client: 'postgres',
+    development: {
+        client: 'postgresql',
         connection: {
-            host: provess.env.DB_HOST,
-            user: provess.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME
+            database: 'test',
+            user: 'q',
+            password: 'idontknow'
+        },
+        pool: {
+            min: 2,
+            max: 10
         },
         migrations: {
-            directory: './db/migrations'
-        },
-        seeds: {
-            directory: './db/seeds'
+            tableName: 'knex_migrations'
         }
-    }
+    },
 }
