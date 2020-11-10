@@ -12,8 +12,6 @@ exports.up = (knex) => {
         table.decimal('price',6,2)
         table.decimal('discount',2,2)
         table.binary('image')
-        table.text('timestamp')
-            .notNullable()
     })
 }
 

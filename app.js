@@ -8,15 +8,17 @@ const app = express()
 // IMPORTS
 require('./motd/motd')
 const PORT = process.env.PORT || 3333
-const routes = require('./endpoints')
-const {deconstruct} = require('./tools/deconstructor')
-routes(app)
 
+// GLOBAL MIDDLEWARE
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
 
-app.post('/api', deconstruct)
+// API
+const routes = require('./config/routes')
+routes(app)
+
+// SERVER MESSAGE
 app.listen(PORT, () => {
     console.clear()
     console.log(motd(PORT))
