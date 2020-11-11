@@ -5,6 +5,7 @@ const get_category_id = async (req, res, next) => {
     if(!req.flags.success) {next(); return}
 
     //CHECK IF CATEGORY ALREADY EXISTS
+    //---A list can probably be stored and updated in memory
     const category = await get('categories', req.category)
 
     //STORE CATEGORY ID IN REQ

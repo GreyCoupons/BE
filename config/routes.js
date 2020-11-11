@@ -12,10 +12,6 @@ const get_coupons = (req, res) => {
     res.send(404)
 }
 
-const add_category = async (req, res) => {
-    
-}
-
 const add_coupon = async (req, res) => {
     const TABLE = 'coupons'
     const REQUEST_TYPE = 'post'
@@ -23,7 +19,9 @@ const add_coupon = async (req, res) => {
     //HIT DATABASE
     if (req.flags.success) {
         try {
-            await model.post(TABLE, req.body)
+            const {id: coupon_id} = await model.post(TABLE, req.body)
+            await model.post('coupon_categories', {coupon_id, category_id: req.category_id})
+            req.body.category = req.category.name
         } catch (err) {
             log_error('DATABASE ERROR', REQUEST_TYPE, err.code, TABLE, req.body)
             req.flags.success = false
