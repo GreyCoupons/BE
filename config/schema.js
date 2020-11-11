@@ -1,6 +1,6 @@
 const coupons = {
-    required: ['title','code'],
-    valid: new Set(['title', 'code', 'category','description'])
+    required: ['title','code','category'],
+    valid: new Set(['title', 'code', 'description'])
 }
 
 const users = {
@@ -8,7 +8,13 @@ const users = {
     valid: new Set([])
 }
 
+const categories = {
+    required: ['name'],
+    valid: new Set(['name'])
+}
+
 module.exports = {
+    users,
     coupons,
-    users
+    categories
 }

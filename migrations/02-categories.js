@@ -5,6 +5,7 @@ exports.up = (knex) => {
             .unique()
             .notNullable()
         table.text('name')
+            .unique()
             .notNullable()
     })
 }

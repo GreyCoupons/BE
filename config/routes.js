@@ -3,13 +3,17 @@ const mw = require('../middleware')
 const {log_error} = require('../tools/errors')
 
 module.exports = app => {
-    app.post('/coupons', mw.valid_coupon, add_coupon),
+    app.post('/coupons', mw.valid_coupon, mw.get_category_id, add_coupon),
     app.get('/coupons', get_coupons)
 }
 
 const get_coupons = (req, res) => {
     console.log('getting coupons')
     res.send(404)
+}
+
+const add_category = async (req, res) => {
+    
 }
 
 const add_coupon = async (req, res) => {
@@ -30,8 +34,8 @@ const add_coupon = async (req, res) => {
     //PREPARE RESPONSE
     const status = req.flags.success ? 200 : 400
     const response = {success: req.flags.success}
-    if(req.flags.success) response.data = req.body
-    if(req.flags.errors) response.errors = req.errors
+    if(req.flags.success) response.data = req.body      //return what was added
+    if(req.flags.errors) response.errors = req.errors   //return any errors
 
     //SEND RESPONSE
     res.status(status).send(response)
