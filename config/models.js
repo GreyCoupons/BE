@@ -6,24 +6,22 @@ const post = async (tbl, obj) =>
 const get_one = async (tbl, obj) =>
     (await db(tbl).where(obj))[0]
 
-const get_category = async (category) =>
-    await db
-        .select('c.*')
-        .from('coupons as c')
-        .join('coupon_categories as cc', 'cc.coupon_id', 'c.id')
+const get_coupons = ({query, category, limit}) => {
+    const builder = db('coupons')
+    if(category) builder
+        .select('coupons.*', 'cat.name as category')
+        .join('coupon_categories as cc', 'cc.coupon_id', 'coupons.id')
         .join('categories as cat', 'cc.category_id', 'cat.id')
         .where('name', '=', category)
-
-const get_all = async ({tbl1, obj1, tbl2, obj2, limit}) => {
-    const builder = db(tbl1).where(obj1)
-    if(tbl2) builder.innerJoin(tbl2).where(obj2)
-    if(limit) builder.limit(limit)
-    return await builder
+    if(query) builder
+        .where(query)
+    if(limit) builder
+        .limit(limit)
+    return builder
 }
 
 module.exports = {
     get_one,
-    get_all,
+    get_coupons,
     post,
-    get_category
 }
