@@ -2,6 +2,25 @@
 const {coupons: coupon_schema} = require('../config/schema')
 const tool = require('../tools/helpers')
 
+const destructure_coupon = (req, res, next) => {
+    //SET UP FLAGS AND ERRORS (move to global)
+    if(!('flags' in req)) req.flags = {success: true, errors: false}
+    if(!('errors' in req)) req.errors = {}
+
+    //REMOVE AND STORE SPECIAL FIELDS
+    req.limit = tool.pop_object(req.body, 'limit')
+    req.category = tool.pop_object(req.body, 'category')
+
+    //REMOVE INVALID FIELDS
+    const invalid_fields = tool.remove_invalid_fields(req.body, coupon_schema.valid)
+    if (invalid_fields.length) {
+        req.errors.invalid_fields = invalid_fields
+        req.flags.errors = true
+    }
+
+    next()
+}
+
 //CHECK IF THE COUPON IS VALID
 const valid_coupon = (req, res, next) => {
     //SET UP FLAGS AND ERRORS (move to global)
@@ -14,7 +33,10 @@ const valid_coupon = (req, res, next) => {
         req.errors.missing_fields = missing_fields
         req.flags.success = false
         req.flags.errors = true
-    } else req.category = {name: req.body.category} //needed for coupon-category table
+    } else {
+        req.category = {name: req.body.category} //needed for coupon-category table
+        delete req.body.category
+    }
 
     //CHECK FOR AND REMOVE ANY INVALID FIELDS
     const invalid_fields = tool.remove_invalid_fields(req.body, coupon_schema.valid)
@@ -28,5 +50,6 @@ const valid_coupon = (req, res, next) => {
 
 //EXPORTS
 module.exports = {
-    valid_coupon
+    valid_coupon,
+    destructure_coupon
 }

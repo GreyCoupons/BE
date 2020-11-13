@@ -18,7 +18,14 @@ const remove_invalid_fields = (obj = {}, valid = Set()) => {
     return true
 }
 
+const pop_object = (obj, key) => {
+    const val = obj[key]
+    delete obj[key]
+    return val
+}
+
 module.exports = {
     has_required_fields,
-    remove_invalid_fields
+    remove_invalid_fields,
+    pop_object
 }
