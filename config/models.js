@@ -6,6 +6,9 @@ const post = async (tbl, obj) =>
 const get_one = async (tbl, obj) =>
     (await db(tbl).where(obj))[0]
 
+const get_all = async (tbl, obj={}) =>
+    await db(tbl).where(obj)
+
 const get_coupons = ({query, category, limit}) => {
     const builder = db('coupons')
     if(category) builder
@@ -22,6 +25,7 @@ const get_coupons = ({query, category, limit}) => {
 
 module.exports = {
     get_one,
+    get_all,
     get_coupons,
     post,
 }

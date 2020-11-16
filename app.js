@@ -15,8 +15,8 @@ app.use(cors())
 app.use(express.json())
 
 // API
-const coupon_routes = require('./routes/coupon_routes')
-coupon_routes(app)
+const routes = require('./routes')
+routes(app)
 
 // SERVER MESSAGE
 app.listen(PORT, () => {

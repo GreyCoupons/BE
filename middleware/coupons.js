@@ -53,8 +53,7 @@ const valid_coupon = async (req, res, next) => {
         req.errors.misc = 'coupon already exists'
         req.flags.errors = true
         req.flags.success = false
-    } else
-        req.body.hash = hash
+    } else req.body.hash = hash
     
     next()
 }
