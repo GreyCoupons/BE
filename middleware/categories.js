@@ -9,9 +9,10 @@ const get_category_id = async (req, res, next) => {
     const category = await get('categories', req.category)
 
     //STORE CATEGORY ID IN REQ
-    if(category) req.category_id = category.id
-    else req.category_id = await post('categories', req.category)
-
+    if(category)
+        req.category_id = category.id
+    else
+        req.category_id = (await post('categories', req.category)).id
     next()
 }
 
