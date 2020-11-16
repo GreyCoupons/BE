@@ -1,5 +1,6 @@
 //IMPORTS
 const model = require('../config/models')
+const mw = require('../middleware')
 const {log_error} = require('../tools/errors')
 
 //GLOBALS
@@ -7,6 +8,10 @@ const TABLE = 'categories'
 
 module.exports = app => {
     app.get('/categories', get_categories)
+}
+
+const add_category = async (req, res) => {
+
 }
 
 const get_categories = async (req, res) => {

@@ -4,10 +4,6 @@ const tool = require('../tools/helpers')
 const {get_one: get} = require('../config/models')
 
 const destructure_coupon = (req, res, next) => {
-    //SET UP FLAGS AND ERRORS (move to global)
-    if(!('flags' in req)) req.flags = {success: true, errors: false}
-    if(!('errors' in req)) req.errors = {}
-
     //REMOVE AND STORE SPECIAL FIELDS
     req.limit = tool.pop_object(req.body, 'limit')
     req.category = tool.pop_object(req.body, 'category')
@@ -24,10 +20,6 @@ const destructure_coupon = (req, res, next) => {
 
 //CHECK IF THE COUPON IS VALID
 const valid_coupon = async (req, res, next) => {
-    //SET UP FLAGS AND ERRORS (move to global)
-    if(!('flags' in req)) req.flags = {success: true, errors: false}
-    if(!('errors' in req)) req.errors = {}
-
     //CHECK IF ALL REQUIRED FIELDS ARE GIVEN
     const missing_fields = tool.has_required_fields(req.body, coupon_schema.required)
     if (missing_fields.length) {

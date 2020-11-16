@@ -1,5 +1,6 @@
 // DEPENDENCIES
 require('dotenv').config()
+const {add_flags} = require('./middleware')
 const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 3333
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
+app.use(add_flags)
 
 // API
 const routes = require('./routes')
