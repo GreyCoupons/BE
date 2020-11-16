@@ -11,6 +11,8 @@ exports.up = (knex) => {
         table.text('expiration')
         table.decimal('price',6,2)
         table.decimal('discount',2,2)
+        table.text('hash')
+            .notNullable()
         table.binary('image')
     })
 }

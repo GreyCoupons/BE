@@ -1,6 +1,7 @@
 //IMPORTS
 const {coupons: coupon_schema} = require('../config/schema')
 const tool = require('../tools/helpers')
+const {get_one: get} = require('../config/models')
 
 const destructure_coupon = (req, res, next) => {
     //SET UP FLAGS AND ERRORS (move to global)
@@ -22,7 +23,7 @@ const destructure_coupon = (req, res, next) => {
 }
 
 //CHECK IF THE COUPON IS VALID
-const valid_coupon = (req, res, next) => {
+const valid_coupon = async (req, res, next) => {
     //SET UP FLAGS AND ERRORS (move to global)
     if(!('flags' in req)) req.flags = {success: true, errors: false}
     if(!('errors' in req)) req.errors = {}
@@ -44,6 +45,16 @@ const valid_coupon = (req, res, next) => {
         req.errors.invalid_fields = invalid_fields
         req.flags.errors = true
     }
+
+    //CHECK IF COUPON ALREADY EXISTS
+    const hash = tool.hash_object({...req.body, category: req.category})
+    const coupon = await get('coupons', {hash})
+    if(coupon) {
+        req.errors.misc = 'coupon already exists'
+        req.flags.errors = true
+        req.flags.success = false
+    } else
+        req.body.hash = hash
     
     next()
 }

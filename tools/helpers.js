@@ -24,8 +24,23 @@ const pop_object = (obj, key) => {
     return val
 }
 
+const hash_object = (obj) => {
+    const str = JSON.stringify(obj)
+    var hash = 0;
+    if (str.length == 0) {
+        return hash;
+    }
+    for (var i = 0; i < str.length; i++) {
+        var char = str.charCodeAt(i);
+        hash = ((hash<<5)-hash)+char;
+        hash = hash & hash; // Convert to 32bit integer
+    }
+    return hash;
+}
+
 module.exports = {
     has_required_fields,
     remove_invalid_fields,
-    pop_object
+    pop_object,
+    hash_object
 }
