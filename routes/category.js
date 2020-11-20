@@ -7,11 +7,12 @@ const {log_error} = require('../tools/errors')
 const TABLE = 'categories'
 
 module.exports = app => {
-    app.get('/categories', get_categories)
+    app.get('/categories', mw.get_category_id, get_categories)
 }
 
 const add_category = async (req, res) => {
-
+    
+    if(req.added.has('category')) null
 }
 
 const get_categories = async (req, res) => {

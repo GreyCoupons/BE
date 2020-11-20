@@ -11,8 +11,10 @@ const get_category_id = async (req, res, next) => {
     //STORE CATEGORY ID IN REQ
     if(category)
         req.category_id = category.id
-    else
+    else {
         req.category_id = (await post('categories', req.category)).id
+        req.added.add('category')
+    }
     next()
 }
 

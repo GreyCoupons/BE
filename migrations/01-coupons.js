@@ -7,7 +7,7 @@ exports.up = (knex) => {
         table.text('title')
             .notNullable()
         table.text('code')
-            .notNullable()
+        table.text('link')
         table.text('expiration')
         table.decimal('price',6,2)
         table.decimal('discount',2,2)
