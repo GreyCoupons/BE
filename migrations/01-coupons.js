@@ -8,12 +8,13 @@ exports.up = (knex) => {
             .notNullable()
         table.text('code')
         table.text('link')
-        table.text('expiration')
         table.decimal('price',6,2)
         table.decimal('discount',2,2)
         table.text('hash')
             .notNullable()
         table.binary('image')
+        table.bigint('timestamp')
+            .notNullable()
     })
 }
 

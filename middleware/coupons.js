@@ -3,6 +3,12 @@ const {coupons: coupon_schema} = require('../config/schema')
 const tool = require('../tools/helpers')
 const {get_one: get} = require('../config/models')
 
+const coupon_expiration = (req, res, next) => {
+    console.log('time', Date.now())
+
+    next()
+}
+
 const destructure_coupon = (req, res, next) => {
     //REMOVE AND STORE SPECIAL FIELDS
     req.limit = tool.pop_object(req.body, 'limit')
@@ -47,11 +53,15 @@ const valid_coupon = async (req, res, next) => {
         req.flags.success = false
     } else req.body.hash = hash
     
+    //ADD A TIMESTAMP IF SUCCESSFULL
+    if(req.flags.success) req.body.timestamp = Date.now()
+    
     next()
 }
 
 //EXPORTS
 module.exports = {
     valid_coupon,
-    destructure_coupon
+    destructure_coupon,
+    coupon_expiration
 }
