@@ -1,5 +1,4 @@
 // DEPENDENCIES
-require("dotenv").config();
 const { add_flags } = require("./middleware");
 const express = require("express");
 const cors = require("cors");
