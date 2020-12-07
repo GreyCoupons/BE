@@ -1,3 +1,6 @@
+# Hiding Google API Keys/Token
+googleSheets/keys.json
+googleSheets/token.json
 # Logs
 logs
 *.log
@@ -41,7 +44,6 @@ build/Release
 node_modules/
 notes/
 jspm_packages/
-
 # TypeScript v1 declaration files
 typings/
 
