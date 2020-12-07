@@ -14,6 +14,7 @@ fs.readFile("keys.json", (err, content) => {
 	if (err) return console.log("Error loading client secret file:", err);
 	// Authorize a client with credentials, then call the Google Sheets API.
 	authorize(JSON.parse(content), listMajors);
+	// authorize(JSON.parse(content), getCodes);
 });
 
 /**
@@ -24,10 +25,10 @@ fs.readFile("keys.json", (err, content) => {
  */
 function authorize(credentials, callback) {
 	const { client_secret, client_id, redirect_uris } = credentials.web;
-	// console.log(credentials.web.redirect_uris);
+	console.log(credentials.web.client_id);
 	const oAuth2Client = new google.auth.OAuth2(
-		client_secret,
 		client_id,
+		client_secret,
 		redirect_uris[0]
 	);
 
@@ -79,12 +80,13 @@ function getNewToken(oAuth2Client, callback) {
  * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
+// https://docs.google.com/spreadsheets/d/1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8/edit#gid=0
 function listMajors(auth) {
 	const sheets = google.sheets({ version: "v4", auth });
 	sheets.spreadsheets.values.get(
 		{
-			spreadsheetId: "1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms",
-			range: "Class Data!A2:E",
+			spreadsheetId: "1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8",
+			range: "A2:A7",
 		},
 		(err, res) => {
 			if (err) return console.log("The API returned an error: " + err);

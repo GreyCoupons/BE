@@ -1,1 +1,13 @@
-{"web":{"client_id":"147897800381-j3du61in6equ8ed1g2sq1bj02r9m4d7q.apps.googleusercontent.com","project_id":"quickstart-1607331342610","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"9kUAIeCsAIeWZwdBrgjVO8kk","redirect_uris":["http://localhost:3333/"]}}
+{
+    "web":
+        {   
+            "client_id":"1056810684907-6grul7ljn4oj4a2ik8nbh0a70ijcuvg7.apps.googleusercontent.com",
+            "project_id":"greycoupons",
+            "auth_uri":"https://accounts.google.com/o/oauth2/auth",
+            "token_uri":"https://oauth2.googleapis.com/token",
+            "auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"AEiEz8cqOydSw5ITYWaxRqEJ",
+            "redirect_uris":["http://localhost:3333/"]
+        }
+    }
+
+    
