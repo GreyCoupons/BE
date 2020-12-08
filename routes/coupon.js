@@ -15,10 +15,10 @@ module.exports = (app) => {
     app.post("/add/coupon", mw.valid_coupon, mw.get_category_id, add_coupon),
         app.post("/coupons", mw.destructure_coupon, get_coupons),
         app.post("/remove/coupon", mw.destructure_coupon, remove_coupons);
-    app.get("/", welcome)
+    app.get("/api/loadcoupons", loadCoupons)
 };
 
-const welcome = async (req, res) => {
+const loadCoupons = async (req, res) => {
 
     const googleAPI = require("../googleSheets")
     await fs.readFile(normalizedPath, (err, content) => {
@@ -68,7 +68,6 @@ const welcome = async (req, res) => {
     }
 
     const data = (couponData) => {
-
         res.status(200).send(couponData);
     }
 }
