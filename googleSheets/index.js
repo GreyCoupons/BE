@@ -2,6 +2,8 @@ const fs = require("fs");
 const readline = require("readline");
 const { google } = require("googleapis");
 
+const normalizedPath = require("path").join(__dirname, "keys.json");
+
 // If modifying these scopes, delete token.json.
 const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 // The file token.json stores the user's access and refresh tokens, and is
@@ -9,11 +11,10 @@ const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 // time.
 const TOKEN_PATH = "token.json";
 
-// Load client secrets from a local file.
-fs.readFile("keys.json", (err, content) => {
+fs.readFile(normalizedPath, (err, content) => {
     if (err) return console.log("Error loading client secret file:", err);
     // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), listMajors);
+    authorize(JSON.parse(content), couponData);
     // authorize(JSON.parse(content), getCodes);
 });
 
@@ -81,7 +82,7 @@ function getNewToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
 // https://docs.google.com/spreadsheets/d/1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8/edit#gid=0
-function listMajors(auth) {
+function couponData(auth) {
     const sheets = google.sheets({ version: "v4", auth });
     sheets.spreadsheets.values.get(
         {
@@ -93,10 +94,20 @@ function listMajors(auth) {
             if (err) return console.log("The API returned an error: " + err);
             const rows = res.data.values;
             if (rows.length) {
-                console.log(rows);
+                let coupons = []
                 // Print columns A and E, which correspond to indices 0 and 4.
                 rows.map((row) => {
-                    console.log(`${row[0]}, ${row[4]}`);
+                    // console.log("title:", row[0], "link:", row[2])
+                    coupons.push({
+                        "title": row[0],
+                        "code": row[1],
+                        "link": row[2],
+                        "price": row[3],
+                        "discount": row[4],
+                        "category": row[6],
+                        "image": row[7]
+                    })
+                    console.log(coupons)
                 });
             } else {
                 console.log("No data found.");
@@ -104,3 +115,4 @@ function listMajors(auth) {
         }
     );
 }
+
