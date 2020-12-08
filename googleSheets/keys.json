@@ -1,14 +1,1 @@
-{
-    "web": {
-        "client_id": "1056810684907-6grul7ljn4oj4a2ik8nbh0a70ijcuvg7.apps.googleusercontent.com",
-        "project_id": "greycoupons",
-        "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-        "token_uri": "https://oauth2.googleapis.com/token",
-        "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-        "client_secret": "AEiEz8cqOydSw5ITYWaxRqEJ",
-        "redirect_uris": [
-            "http://localhost:3333/",
-            "https://3333-c48936f1-6a13-4791-98d2-0278fac5edf9.ws-us03.gitpod.io/"
-        ]
-    }
-}
+{"web":{"client_id":"1056810684907-6grul7ljn4oj4a2ik8nbh0a70ijcuvg7.apps.googleusercontent.com","project_id":"greycoupons","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs","client_secret":"H5qLDXdVS8Pm2jtkRwkibGVQ","redirect_uris":["http://localhost:3333/","https://3333-c48936f1-6a13-4791-98d2-0278fac5edf9.ws-us03.gitpod.io/"]}}
