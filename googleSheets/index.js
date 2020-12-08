@@ -12,12 +12,20 @@ const SCOPES = ["https://www.googleapis.com/auth/spreadsheets"];
 const TOKEN_PATH = "token.json";
 
 // const initiateDataLoading = () => {
-fs.readFile(normalizedPath, (err, content) => {
-    if (err) return console.log("Error loading client secret file:", err);
-    // Authorize a client with credentials, then call the Google Sheets API.
-    authorize(JSON.parse(content), couponData);
-    // authorize(JSON.parse(content), getCodes);
-});
+// fs.readFile(normalizedPath, (err, content) => {
+//     if (err) return console.log("Error loading client secret file:", err);
+//     // Authorize a client with credentials, then call the Google Sheets API.
+//     authorize(JSON.parse(content), couponData);
+//     // authorize(JSON.parse(content), getCodes);
+// });
+
+// fs.readFile(normalizedPath, (err, content) => {
+//     if (err) return console.log("Error loading client secret file:", err);
+//     // Authorize a client with credentials, then call the Google Sheets API.
+//     authorize(JSON.parse(content), couponData);
+//     // authorize(JSON.parse(content), getCodes);
+// });
+
 // }
 
 /**
@@ -83,43 +91,52 @@ function getNewToken(oAuth2Client, callback) {
  * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
  */
 // https://docs.google.com/spreadsheets/d/1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8/edit#gid=0
-function couponData(auth) {
+// function couponData(auth) {
 
-    const sheets = google.sheets({ version: "v4", auth });
-    let coupons = [];
-    sheets.spreadsheets.values.get(
-        {
-            spreadsheetId: "1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8",
-            // Gets each rows value, from start row cell, to the end row cell.
-            range: "A4:H100",
-        },
-        (err, res) => {
-            if (err) return console.log("The API returned an error: " + err);
-            const rows = res.data.values;
+//     const sheets = google.sheets({ version: "v4", auth });
+//     let coupons = [];
+//     sheets.spreadsheets.values.get(
+//         {
+//             spreadsheetId: "1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8",
+//             // Gets each rows value, from start row cell, to the end row cell.
+//             range: "A4:H100",
+//         },
+//         (err, res) => {
+//             if (err) return console.log("The API returned an error: " + err);
+//             const rows = res.data.values;
 
-            if (rows.length) {
-                // Print columns A and E, which correspond to indices 0 and 4.
-                rows.map((row) => {
-                    // console.log("title:", row[0], "link:", row[2])
-                    coupons.push({
-                        title: row[0],
-                        code: row[1],
-                        link: row[2],
-                        price: row[3],
-                        discount: row[4],
-                        category: row[6],
-                        image: row[7],
-                    });
-                });
-                res.send(coupons)
-            } else {
-                console.log("No data found.");
-            }
-        }
-    );
+//             if (rows.length) {
+//                 // Print columns A and E, which correspond to indices 0 and 4.
+//                 rows.map((row) => {
+//                     // console.log("title:", row[0], "link:", row[2])
+//                     coupons.push({
+//                         title: row[0],
+//                         code: row[1],
+//                         link: row[2],
+//                         price: row[3],
+//                         discount: row[4],
+//                         category: row[6],
+//                         image: row[7],
+//                     });
+//                 });
+//                 data(coupons)
+//                 // console.log(coupons)
+//             } else {
+//                 console.log("No data found.");
+//             }
+//         }
+//     );
 
-}
-
-// module.exports = {
-//     initiateDataLoading
 // }
+
+// const data = (couponData) => {
+//     return couponData
+//     // console.log(couponData)
+//     // module.exports = {
+//     //     couponData
+//     // }
+// }
+
+module.exports = {
+    authorize
+}

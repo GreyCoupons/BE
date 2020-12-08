@@ -2,7 +2,10 @@
 const model = require("../config/models");
 const mw = require("../middleware");
 const { log_error } = require("../tools/errors");
-
+const normalizedPath = require("path").join(__dirname, "../googleSheets/keys.json");
+const fs = require("fs");
+const readline = require("readline");
+const { google } = require("googleapis");
 
 // const keys = require("../googleSheets/keys.json")
 //GLOBALS
@@ -16,10 +19,58 @@ module.exports = (app) => {
 };
 
 const welcome = async (req, res) => {
-    // googleAPI
+
     const googleAPI = require("../googleSheets")
-    console.log(googleAPI)
-    res.status(200).send("Welcome!");
+    await fs.readFile(normalizedPath, (err, content) => {
+        if (err) return console.log("Error loading client secret file:", err);
+        // Authorize a client with credentials, then call the Google Sheets API.
+        googleAPI.authorize(JSON.parse(content), couponData);
+        // authorize(JSON.parse(content), getCodes);
+    });
+    let coupons = [];
+
+    // Retrieves google Sheets data
+    async function couponData(auth) {
+        const sheets = google.sheets({ version: "v4", auth });
+
+        await sheets.spreadsheets.values.get(
+            {
+                spreadsheetId: "1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8",
+                // Gets each rows value, from start row cell, to the end row cell.
+                range: "A4:H100",
+            },
+            (err, res) => {
+                if (err) return console.log("The API returned an error: " + err);
+                const rows = res.data.values;
+
+                if (rows.length) {
+                    // Print columns A and E, which correspond to indices 0 and 4.
+                    rows.map((row) => {
+                        // console.log("title:", row[0], "link:", row[2])
+                        coupons.push({
+                            title: row[0],
+                            code: row[1],
+                            link: row[2],
+                            price: row[3],
+                            discount: row[4],
+                            category: row[6],
+                            image: row[7],
+                        });
+                    });
+                    // Sends over the google sheets data to the function to add to db
+                    data(coupons)
+                } else {
+                    console.log("No data found.");
+                }
+            }
+        );
+
+    }
+
+    const data = (couponData) => {
+
+        res.status(200).send(couponData);
+    }
 }
 
 const remove_coupons = async (req, res) => {
