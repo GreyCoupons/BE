@@ -2,7 +2,8 @@
 const model = require("../config/models");
 const mw = require("../middleware");
 const { log_error } = require("../tools/errors");
-const googleAPI = require("../googleSheets");
+
+
 // const keys = require("../googleSheets/keys.json")
 //GLOBALS
 const TABLE = "coupons";
@@ -15,10 +16,14 @@ module.exports = (app) => {
 };
 
 const welcome = async (req, res) => {
+    // googleAPI
+    const googleAPI = require("../googleSheets")
+    console.log(googleAPI)
     res.status(200).send("Welcome!");
 }
 
 const remove_coupons = async (req, res) => {
+
     //SET GLOBAL VARIABLE
     const REQUEST_TYPE = "delete";
     let status = req.flags.success ? 200 : 400;
