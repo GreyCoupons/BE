@@ -1,6 +1,14 @@
 const coupons = {
 	required: ["title", "code", "category"],
-	valid: new Set(["title", "code", "description", "link", "image", "price"]),
+	valid: new Set([
+		"title",
+		"code",
+		"description",
+		"link",
+		"image",
+		"price",
+		"discount",
+	]),
 };
 
 const users = {

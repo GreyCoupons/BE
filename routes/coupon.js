@@ -2,12 +2,13 @@
 const model = require("../config/models");
 const mw = require("../middleware");
 const { log_error } = require("../tools/errors");
+const axios = require("axios");
+
 const normalizedPath = require("path").join(
 	__dirname,
 	"../googleSheets/keys.json"
 );
 const fs = require("fs");
-const readline = require("readline");
 const { google } = require("googleapis");
 
 // const keys = require("../googleSheets/keys.json")
@@ -22,13 +23,18 @@ module.exports = (app) => {
 };
 
 const loadCoupons = async (req, res) => {
+	// Importing Google File
 	const googleAPI = require("../googleSheets");
+
+	// Creates/Verifies Google Token, then sends token to the couponData function
 	await fs.readFile(normalizedPath, (err, content) => {
 		if (err) return console.log("Error loading client secret file:", err);
 		// Authorize a client with credentials, then call the Google Sheets API.
 		googleAPI.authorize(JSON.parse(content), couponData);
 		// authorize(JSON.parse(content), getCodes);
 	});
+
+	// stores all the coupons retrieved from google sheets
 	let coupons = [];
 
 	// Retrieves google Sheets data
@@ -48,7 +54,7 @@ const loadCoupons = async (req, res) => {
 				if (rows.length) {
 					// Print columns A and E, which correspond to indices 0 and 4.
 					rows.map((row) => {
-						// console.log("title:", row[0], "link:", row[2])
+						// putting the data in the json format to send to the backend laterz
 						coupons.push({
 							title: row[0],
 							code: row[1],
@@ -60,21 +66,51 @@ const loadCoupons = async (req, res) => {
 						});
 					});
 					// Sends over the google sheets data to the function to add to db
-					data(coupons);
+					sendRocketShip(coupons);
 				} else {
 					console.log("No data found.");
 				}
 			}
 		);
 	}
+};
 
-	const data = (couponData) => {
-		couponData.map((coupon) => {
-			// console.log(coupon);
-			add_coupon(coupon);
+const sendRocketShip = async (couponData) => {
+	await couponData.map((coupon) => {
+		// Janky ass fix to send the google data to the add coupon database
+		axios
+			.post("http://localhost:3333/add/coupon", coupon)
+			.then((res) => {
+				console.log("Successfully added coupon");
+				// res.status(200).send("successfully loaded coupon");
+			})
+			.catch((err) => {
+				console.log("error");
+				// res.status(400).send(err);
+			});
+	});
+};
+
+const sendCoupon = async (req, res) => {
+	const REQUEST_TYPE = "post";
+	//HIT DATABASE
+	let status;
+	try {
+		const { id: coupon_id } = await model.post(TABLE, req);
+		await model.post("coupon_categories", {
+			coupon_id,
+			category_id: req.category_id,
 		});
-		res.status(200).send(couponData);
-	};
+		req.category = req.category.name;
+		status = 200;
+	} catch (err) {
+		log_error("DATABASE ERROR", REQUEST_TYPE, err.code, TABLE, req);
+		console.log(err.message);
+		status = 400;
+	}
+
+	//SEND RESPONSE
+	res.status(status).send(response);
 };
 
 const remove_coupons = async (req, res) => {
