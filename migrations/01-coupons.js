@@ -5,6 +5,7 @@ exports.up = (knex) => {
 		table.text("code");
 		table.text("link");
 		table.decimal("price", 6, 2);
+		table.text("description");
 		table.decimal("discount", 6, 2);
 		table.text("hash").notNullable();
 		table.binary("image");
