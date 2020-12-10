@@ -16,12 +16,16 @@ const { google } = require("googleapis");
 const TABLE = "coupons";
 
 module.exports = (app) => {
+	app.get("/", welcome);
 	app.post("/add/coupon", mw.valid_coupon, mw.get_category_id, add_coupon),
 		app.post("/coupons", mw.destructure_coupon, get_coupons),
 		app.post("/remove/coupon", mw.destructure_coupon, remove_coupons);
 	app.get("/api/loadcoupons", loadCoupons);
 };
 
+const welcome = (req, res) => {
+	res.status(200).send("Welcome");
+};
 const loadCoupons = async (req, res) => {
 	// Importing Google File
 	const googleAPI = require("../googleSheets");
