@@ -33,11 +33,11 @@ const get_coupons = ({query, category, limit}) => {
     if(category) builder
         .where('name', '=', category)
     if(query.title) {
-        let tmp = query.title
+        let title = query.title
         delete query['title']
         builder
             .where(query)
-            .andWhere('title', 'like', `%${tmp}%`)
+            .andWhere('title', 'ilike', `%${title}%`)
     }
     else if(query) builder
         .where(query)
