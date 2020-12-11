@@ -32,7 +32,14 @@ const get_coupons = ({query, category, limit}) => {
         .join('categories as cat', 'cc.category_id', 'cat.id')
     if(category) builder
         .where('name', '=', category)
-    if(query) builder
+    if(query.title) {
+        let tmp = query.title
+        delete query['title']
+        builder
+            .where(query)
+            .andWhere('title', 'like', `%${tmp}%`)
+    }
+    else if(query) builder
         .where(query)
     if(limit) builder
         .limit(limit)
