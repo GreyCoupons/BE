@@ -89,7 +89,7 @@ const sendRocketShip = async (couponData) => {
 				// res.status(200).send("successfully loaded coupon")
 			})
 			.catch((err) => {
-				console.log("error");
+				console.log(err);
 				// res.status(400).send(err)
 			});
 	});
