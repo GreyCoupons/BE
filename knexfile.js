@@ -3,7 +3,7 @@ require("dotenv").config();
 
 module.exports = {
 	development: {
-		client: "pg",
+		client: process.env.DB_CLIENT || "pg",
 		connection: process.env.DATABASE_URL || {
 			database: "test",
 			user: "postgres",
@@ -19,12 +19,10 @@ module.exports = {
 		useNullAsDefault: true,
 	},
 	production: {
-		production: {
-			client: "pg",
-			connection: process.env.DATABASE_URL,
-			migrations: {
-				directory: "knex_migrationss",
-			},
+		client: process.env.DB_CLIENT || "pg",
+		connection: process.env.DATABASE_URL,
+		migrations: {
+			tableName: "knex_migrationss",
 		},
 	},
 };
