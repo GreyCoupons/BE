@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "greycoupons",
+  "private_key_id": "cafe9299d5b5682c1b5e02d662f6f6b915b76a28",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC43Aevx3Vcz9PB\nsS2K9R7um8EO9QppIPYvEVnMugjSckpMqN+FUC00p5DRILdgdUueM70pRxlcSHAe\nvCxLjuwkKnuxyDzbqxrSFmp7c83cWBFI5J1C72qm9XlEPOIn9beJUWY5vuXDuBkM\n/0C2dJ9eeAMVVFqcZ2CGSiHkYeSJ40lhGkWaL7XG4IUXw9mB0ePh4tzDBCBUUbDC\nmk3725aBi+UZbc7QSQuRLXnMeAXRfkOYaTwlEO8ELIrMteypTazrJk7QVHLeb4NB\nRzxi7la37U18FM0mTq6YJMGC226pb5jfnO1iJLgGLK96gT9xiVOG8W4oZbGwNM+l\n+XPkUytzAgMBAAECggEACpu7dMrRWttx71/mDHitmj7MJCB+xPKtys/hlqr0Xgzn\nltRrSbpRcplmtgGWus1wYsQQVM6UnEprfyM7g+iDRHE/R1mfPthOW53Xfxck49vj\nJHFuIhm2kp2fcTS9oh83nATUuEQ5HKazbuubZv0OHXAHD6tkE2BBVn0cypjgvxYR\nZFXlkGdtjy90iGO+sayJZwrTUHmG8cCXL9Vc+7S2IZMCB3XuRQ/ji8FH0aWdkBUo\nfO+ohWrt+j2lYAyNkzAtJktPRfY9t8ZiCWmLSo3mPjwUaj5tAFuFyPnu+tIdZuPd\nP8eu1ktGnv5BWhaivt8u8Hehzq/hZj7a8HEGZUhUUQKBgQDweG31156rFHX9U7pH\nVyH4wA4CrSuUTpfRZYhld2+0pYmfqFyRdRyEj6dhJM41gSBCcUTkr6zyx8YP+E+M\nm3x+xZCc521mNJpagBuKA1Yksk/fitunLhEk3yHLBUeCKHFoM6pEyQuIOk7j9iV1\nzpUq+exxekQCzV/ewj3tGsg9EQKBgQDEzDbb3bMH8jBWSlF5ITd6qBvgupVM7InJ\nOddHix6n2iXe+tWkst6rcm8/VGttkQ7xz4HL1KSCD61wwX7KNFjtZRv9eZM0JGkx\nx+PwOkei2bj+c2Uvjg7msO/2BiNJ8QzUPO6paptD4rSAWjtKDf1vd+LU8nd4oGuO\n0PYqTvgwQwKBgE12Db3Omj7z1VooOW43pCrT+u9jxxD8DC2Yrko5IhOn62AxxLfa\naLhO6hUB3SchFDoy8IVWDbkbHzMPwthBUeYoUAArEHOG6F3UvIpFrt8dTVtuCHme\n/kjJU8JpTfKggn+VfPixZnSYi8clCEYdqLFyVnbrcrMQYxyHp5kUMoJxAoGAcSNq\nQnqxS1cr/N/a+QVkrMpqxIbgAIpYKGxtXH8Zj6w1a3zPSFFg/DXcyQ7Sd/oWGmSO\nnU1RikhTEOjc6Iixu0EOl2nGfAqWw3zEiT4oIvKCjR5wRKep32xHeCxNK1w+YOHq\n31EflCaIWOYHAesLEYNdz8jZcGrhiwiNDQO7YZsCgYEA6j8shE7jFPw508IA6i1d\nvCDnyNLJHWk0YG92xNog8yVDlQ6MExGosWEcPNgHXdEJxQAus57sjoBBFC8SB1qC\njFd6Y/E9GnlqiNsS01WI7gDBKWwrNgtZ/R8n0Fa4k/oCeZeO3spALxbAJWTLIBb9\nNI6PltZGKYoJccv23SkhLzU=\n-----END PRIVATE KEY-----\n",
+  "client_email": "greycoupon-test@greycoupons.iam.gserviceaccount.com",
+  "client_id": "109449023174340310742",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/greycoupon-test%40greycoupons.iam.gserviceaccount.com"
+}
