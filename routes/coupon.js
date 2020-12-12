@@ -83,7 +83,7 @@ const sendRocketShip = async (couponData) => {
 	await couponData.map((coupon) => {
 		// Janky ass fix to send the google data to the add coupon database
 		axios
-			.post("http://localhost:3333/add/coupon", coupon)
+			.post("https://greycoupon-test.herokuapp.com/add/coupon", coupon)
 			.then((res) => {
 				console.log("Successfully added coupon");
 				// res.status(200).send("successfully loaded coupon")
