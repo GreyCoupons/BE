@@ -8,21 +8,24 @@ const coupons = {
 		"image",
 		"price",
 		"discount",
+		"timestamp",
+		"featured",
+		"expirationDate",
 	]),
-};
+}
 
 const users = {
 	required: [],
 	valid: new Set([]),
-};
+}
 
 const categories = {
 	required: ["name"],
 	valid: new Set(["name"]),
-};
+}
 
 module.exports = {
 	users,
 	coupons,
 	categories,
-};
+}
