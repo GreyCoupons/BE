@@ -40,7 +40,9 @@ const valid_coupon = async (req, res, next) => {
 		req.flags.errors = true
 	} else {
 		req.category = { name: req.body.category } //needed for coupon-category table
+		req.featured = { name: req.body.featured } //needed for coupon-category table
 		delete req.body.category
+		delete req.body.featured
 	}
 
 	//CHECK FOR AND REMOVE ANY INVALID FIELDS

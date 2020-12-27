@@ -3,7 +3,6 @@ exports.up = (knex) => {
 		table.increments("id").primary().unique().notNullable()
 		table.text("title").notNullable()
 		table.text("description")
-		table.text("featured")
 		table.text("code")
 		table.text("link")
 		table.decimal("price", 6, 2)

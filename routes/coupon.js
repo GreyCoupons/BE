@@ -17,7 +17,13 @@ const TABLE = "coupons"
 
 module.exports = (app) => {
 	app.get("/", welcome)
-	app.post("/add/coupon", mw.valid_coupon, mw.get_category_id, add_coupon),
+	app.post(
+		"/add/coupon",
+		mw.valid_coupon,
+		mw.get_category_id,
+		mw.get_featured_id,
+		add_coupon
+	),
 		app.post("/coupons", mw.destructure_coupon, get_coupons),
 		app.post("/remove/coupon", mw.destructure_coupon, remove_coupons)
 	app.get("/api/loadcoupons", loadCoupons)
@@ -194,11 +200,18 @@ const add_coupon = async (req, res) => {
 	if (req.flags.success) {
 		try {
 			const { id: coupon_id } = await model.post(TABLE, req.body)
+
 			await model.post("coupon_categories", {
 				coupon_id,
 				category_id: req.category_id,
 			})
+
+			await model.post("coupon_featured", {
+				coupon_id,
+				featured_id: req.featured_id,
+			})
 			req.body.category = req.category.name
+			req.body.featured = req.featured.name
 		} catch (err) {
 			log_error("DATABASE ERROR", REQUEST_TYPE, err.code, TABLE, req.body)
 			console.log(err.message)
