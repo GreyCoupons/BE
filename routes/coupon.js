@@ -224,7 +224,6 @@ const add_coupon = async (req, res) => {
 	if (req.flags.success) {
 		try {
 			const { id: coupon_id } = await model.post(TABLE, req.body)
-			console.log(req.featured_id, "FEAT ID", req.coupon_id, "COUPID")
 			await model.post("coupon_categories", {
 				coupon_id,
 				category_id: req.category_id,
@@ -258,19 +257,20 @@ const add_coupon = async (req, res) => {
 const removeExpired = async (req, res) => {
 	const REQUEST_TYPE = "post"
 
-	const formatYmd = (date) => date.toISOString().slice(0, 10)
-	formatYmd(req.body)
+	let status = req.flags.success ? 200 : 400
 
-	console.log(newDate)
 	try {
 		removedCoupon = await model.removeExpired({
-			query: req.body,
+			query: req.body.expirationDate,
 		})
-		console.log(removedCoupon, "REMOVED")
+		status = 200
+		response = removedCoupon
 	} catch (err) {
 		console.log(err, "NOPE")
+		status = 400
 	}
 
+	res.status(status).send(response)
 	// //HIT DATABASE
 	// if (req.flags.success) {
 	// 	try {

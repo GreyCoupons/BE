@@ -23,9 +23,15 @@ const remove_coupons = async ({ query, category }) => {
 }
 
 const removeExpired = async ({ query }) => {
-	const listOfExpired = await db("coupons").where("expirationDate", query)
-
-	return listOfExpired
+	const listOfExpiredID = await db("coupons")
+		.where("expirationDate", query)
+		.select("id")
+		.del()
+	if (listOfExpiredID === 0) {
+		return "No coupons to remove"
+	} else {
+		return "successfully deleted expired coupons"
+	}
 }
 const get_coupons = ({ query, category, limit }) => {
 	const builder = db("coupons")
