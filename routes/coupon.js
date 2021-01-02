@@ -27,7 +27,8 @@ module.exports = (app) => {
 		app.post("/coupons", mw.destructure_coupon, get_coupons),
 		app.post("/remove/coupon", mw.destructure_coupon, remove_coupons),
 		app.post("/get/featured", getFeatured),
-		app.get("/api/loadcoupons", loadCoupons)
+		app.get("/api/loadcoupons", loadCoupons),
+		app.post("/api/removeExpired", removeExpired)
 }
 
 const welcome = (req, res) => {
@@ -223,7 +224,7 @@ const add_coupon = async (req, res) => {
 	if (req.flags.success) {
 		try {
 			const { id: coupon_id } = await model.post(TABLE, req.body)
-
+			console.log(req.featured_id, "FEAT ID", req.coupon_id, "COUPID")
 			await model.post("coupon_categories", {
 				coupon_id,
 				category_id: req.category_id,
@@ -252,4 +253,55 @@ const add_coupon = async (req, res) => {
 
 	//SEND RESPONSE
 	res.status(status).send(response)
+}
+
+const removeExpired = async (req, res) => {
+	const REQUEST_TYPE = "post"
+
+	const formatYmd = (date) => date.toISOString().slice(0, 10)
+	formatYmd(req.body)
+
+	console.log(newDate)
+	try {
+		removedCoupon = await model.removeExpired({
+			query: req.body,
+		})
+		console.log(removedCoupon, "REMOVED")
+	} catch (err) {
+		console.log(err, "NOPE")
+	}
+
+	// //HIT DATABASE
+	// if (req.flags.success) {
+	// 	try {
+	// 		const { id: coupon_id } = await model.post(TABLE, req.body)
+
+	// 		await model.post("coupon_categories", {
+	// 			coupon_id,
+	// 			category_id: req.category_id,
+	// 		})
+	// 		if (req.featured.name.toString() !== "") {
+	// 			await model.post("coupon_featured", {
+	// 				coupon_id,
+	// 				featured_id: req.featured_id,
+	// 			})
+	// 			req.body.featured = req.featured.name
+	// 		}
+	// 		req.body.category = req.category.name
+	// 	} catch (err) {
+	// 		log_error("DATABASE ERROR", REQUEST_TYPE, err.code, TABLE, req.body)
+	// 		console.log(err.message)
+	// 		req.flags.success = false
+	// 		req.errors.database = err.code
+	// 	}
+	// }
+
+	// //PREPARE RESPONSE
+	// const status = req.flags.success ? 200 : 400
+	// const response = { success: req.flags.success }
+	// if (req.flags.success) response.data = req.body //return what was added
+	// if (req.flags.errors) response.errors = req.errors //return any errors
+
+	// //SEND RESPONSE
+	// res.status(status).send(response)
 }

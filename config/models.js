@@ -22,6 +22,11 @@ const remove_coupons = async ({ query, category }) => {
 	return amount_removed
 }
 
+const removeExpired = async ({ query }) => {
+	const listOfExpired = await db("coupons").where("expirationDate", query)
+
+	return listOfExpired
+}
 const get_coupons = ({ query, category, limit }) => {
 	const builder = db("coupons")
 		.select("coupons.*", "cat.name as category")
@@ -49,6 +54,7 @@ module.exports = {
 	get_all,
 	get_coupons,
 	post,
+	removeExpired,
 	remove_coupons,
 	get_featured,
 }

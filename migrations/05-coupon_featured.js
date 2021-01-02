@@ -10,7 +10,7 @@ exports.up = (knex) => {
 		table
 			.integer("featured_id")
 			.references("id")
-			.inTable("categories")
+			.inTable("featured")
 			.onUpdate("CASCADE")
 			.onDelete("CASCADE")
 	})

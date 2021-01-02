@@ -9,7 +9,7 @@ exports.up = (knex) => {
 		table.decimal("discount", 6, 2)
 		table.text("hash").notNullable()
 		table.binary("image")
-		table.text("expirationDate")
+		table.date("expirationDate")
 		table.bigint("timestamp").notNullable()
 	})
 }
