@@ -24,7 +24,7 @@ const remove_coupons = async ({ query, category }) => {
 
 const removeExpired = async ({ query }) => {
 	const listOfExpiredID = await db("coupons")
-		.where("expirationDate", query)
+		.where("expirationDate", "<", query)
 		.select("id")
 		.del()
 	if (listOfExpiredID === 0) {
