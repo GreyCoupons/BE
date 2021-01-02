@@ -28,7 +28,7 @@ module.exports = (app) => {
 		app.post("/remove/coupon", mw.destructure_coupon, remove_coupons),
 		app.post("/get/featured", getFeatured),
 		app.get("/api/loadcoupons", loadCoupons),
-		app.post("/api/removeExpired", removeExpired)
+		app.get("/api/removeExpired", removeExpired)
 }
 
 const welcome = (req, res) => {
@@ -258,10 +258,16 @@ const removeExpired = async (req, res) => {
 	const REQUEST_TYPE = "post"
 
 	let status = req.flags.success ? 200 : 400
+	var today = new Date()
+	var dd = String(today.getDate()).padStart(2, "0")
+	var mm = String(today.getMonth() + 1).padStart(2, "0") //January is 0!
+	var yyyy = today.getFullYear()
+
+	today = mm + "/" + dd + "/" + yyyy
 
 	try {
 		removedCoupon = await model.removeExpired({
-			query: req.body.expirationDate,
+			query: today,
 		})
 		status = 200
 		response = removedCoupon
