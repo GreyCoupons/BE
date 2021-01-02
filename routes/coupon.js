@@ -25,8 +25,9 @@ module.exports = (app) => {
 		add_coupon
 	),
 		app.post("/coupons", mw.destructure_coupon, get_coupons),
-		app.post("/remove/coupon", mw.destructure_coupon, remove_coupons)
-	app.get("/api/loadcoupons", loadCoupons)
+		app.post("/remove/coupon", mw.destructure_coupon, remove_coupons),
+		app.post("/get/featured", getFeatured),
+		app.get("/api/loadcoupons", loadCoupons)
 }
 
 const welcome = (req, res) => {
@@ -106,6 +107,28 @@ const sendRocketShip = async (couponData) => {
 				// res.status(400).send(err)
 			})
 	})
+}
+
+const getFeatured = async (req, res) => {
+	let status = req.flags.success ? 200 : 400
+	const REQUEST_TYPE = "get"
+	let featured = null
+
+	try {
+		// const { id: coupon_id } = await model.post("coupon_featured", req)
+		featured = await model.get_featured({
+			query: req.body,
+			featured: req.featured,
+			limit: req.limit,
+		})
+		response = featured
+		status = 200
+	} catch (err) {
+		log_error("DATABASE ERROR", REQUEST_TYPE, err.code, TABLE, req)
+		console.log(err.message)
+		status = 400
+	}
+	res.status(status).send(response)
 }
 
 const sendCoupon = async (req, res) => {
@@ -205,13 +228,14 @@ const add_coupon = async (req, res) => {
 				coupon_id,
 				category_id: req.category_id,
 			})
-
-			await model.post("coupon_featured", {
-				coupon_id,
-				featured_id: req.featured_id,
-			})
+			if (req.featured.name.toString() !== "") {
+				await model.post("coupon_featured", {
+					coupon_id,
+					featured_id: req.featured_id,
+				})
+				req.body.featured = req.featured.name
+			}
 			req.body.category = req.category.name
-			req.body.featured = req.featured.name
 		} catch (err) {
 			log_error("DATABASE ERROR", REQUEST_TYPE, err.code, TABLE, req.body)
 			console.log(err.message)

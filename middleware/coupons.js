@@ -56,7 +56,11 @@ const valid_coupon = async (req, res, next) => {
 	}
 
 	//CHECK IF COUPON ALREADY EXISTS
-	const hash = tool.hash_object({ ...req.body, category: req.category })
+	const hash = tool.hash_object({
+		...req.body,
+		category: req.category,
+		featured: req.featured,
+	})
 	const coupon = await get("coupons", { hash })
 	if (coupon) {
 		req.errors.misc = "coupon already exists"

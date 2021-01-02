@@ -6,7 +6,6 @@ const get_featured_id = async (req, res, next) => {
 		next()
 		return
 	}
-
 	//CHECK IF FEATURED ALREADY EXISTS
 	//---A list can probably be stored and updated in memory
 	const featured = await get("featured", req.featured)

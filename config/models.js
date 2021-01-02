@@ -37,10 +37,18 @@ const get_coupons = ({ query, category, limit }) => {
 	return builder
 }
 
+const get_featured = ({ query, featured, limit }) => {
+	const builder = db("coupons")
+		.select("coupons.*", "feat.name as featured")
+		.join("coupon_featured as cc", "cc.coupon_id", "coupons.id")
+		.join("featured as feat", "cc.featured_id", "feat.id")
+	return builder
+}
 module.exports = {
 	get_one,
 	get_all,
 	get_coupons,
 	post,
 	remove_coupons,
+	get_featured,
 }
