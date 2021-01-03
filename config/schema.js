@@ -11,6 +11,7 @@ const coupons = {
 		"timestamp",
 		"featured",
 		"expirationDate",
+		"imageAddress",
 	]),
 }
 
