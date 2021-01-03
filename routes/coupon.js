@@ -74,7 +74,7 @@ const loadCoupons = async (req, res) => {
 							discount: row[4],
 							expirationDate: row[5],
 							category: row[6],
-							image: row[7],
+							imageAddress: row[7],
 							featured: row[8],
 						})
 					})
