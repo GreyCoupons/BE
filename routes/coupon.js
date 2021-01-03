@@ -72,7 +72,7 @@ const loadCoupons = async (req, res) => {
 							link: row[2],
 							price: row[3],
 							discount: row[4],
-							expirationDate: new Date(row[5]),
+							expirationDate: row[5],
 							category: row[6],
 							image: row[7],
 							featured: row[8],
@@ -94,9 +94,9 @@ const sendRocketShip = async (couponData) => {
 		axios
 			.post(
 				// Production endpoint
-				// "https://greycoupon-test.herokuapp.com/add/coupon"
+				"https://greycoupon-test.herokuapp.com/add/coupon",
 				// Testing endpoint, REMEMBER TO COMMENT OUT
-				"http://localhost:3333/add/coupon",
+				// "http://localhost:3333/add/coupon",
 				coupon
 			)
 			.then((res) => {

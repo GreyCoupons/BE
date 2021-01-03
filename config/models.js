@@ -33,6 +33,7 @@ const removeExpired = async ({ query }) => {
 		return "successfully deleted expired coupons"
 	}
 }
+
 const get_coupons = ({ query, category, limit }) => {
 	const builder = db("coupons")
 		.select("coupons.*", "cat.name as category")

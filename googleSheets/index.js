@@ -70,10 +70,7 @@ function getNewToken(oAuth2Client, callback) {
 		rl.close()
 		oAuth2Client.getToken(code, (err, token) => {
 			if (err)
-				return console.error(
-					"Error while trying to retrieve access token",
-					err
-				)
+				return console.error("Error while trying to retrieve access token", err)
 			oAuth2Client.setCredentials(token)
 			// Store the token to disk for later program executions
 			fs.writeFile(TOKEN_PATH, JSON.stringify(token), (err) => {
