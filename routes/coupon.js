@@ -95,9 +95,9 @@ const sendRocketShip = async (couponData) => {
 		axios
 			.post(
 				// Production endpoint
-				// "https://greycoupon-test.herokuapp.com/add/coupon",
+				"https://greycoupon-test.herokuapp.com/add/coupon",
 				// Testing endpoint, REMEMBER TO COMMENT OUT
-				"http://localhost:3333/add/coupon",
+				// "http://localhost:3333/add/coupon",
 				coupon
 			)
 			.then((res) => {
