@@ -56,7 +56,7 @@ const loadCoupons = async (req, res) => {
 			{
 				spreadsheetId: "1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8",
 				// Gets each rows value, from start row cell, to the end row cell.
-				range: "A4:I100",
+				range: "A4:J100",
 			},
 			(err, res) => {
 				if (err) return console.log("The API returned an error: " + err)
@@ -95,9 +95,9 @@ const sendRocketShip = async (couponData) => {
 		axios
 			.post(
 				// Production endpoint
-				"https://greycoupon-test.herokuapp.com/add/coupon",
+				// "https://greycoupon-test.herokuapp.com/add/coupon",
 				// Testing endpoint, REMEMBER TO COMMENT OUT
-				// "http://localhost:3333/add/coupon",
+				"http://localhost:3333/add/coupon",
 				coupon
 			)
 			.then((res) => {
@@ -105,7 +105,7 @@ const sendRocketShip = async (couponData) => {
 				// res.status(200).send("successfully loaded coupon")
 			})
 			.catch((err) => {
-				console.log(err)
+				console.log(err, coupon)
 				// res.status(400).send(err)
 			})
 	})
@@ -229,7 +229,7 @@ const add_coupon = async (req, res) => {
 				coupon_id,
 				category_id: req.category_id,
 			})
-			if (req.featured.name.toString() !== "") {
+			if (req.featured.name.toString() === "yes") {
 				await model.post("coupon_featured", {
 					coupon_id,
 					featured_id: req.featured_id,
