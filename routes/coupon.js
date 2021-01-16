@@ -76,6 +76,7 @@ const loadCoupons = async (req, res) => {
 							category: row[6],
 							imageAddress: row[7],
 							featured: row[8],
+							rating: row[9],
 						})
 					})
 					// Sends over the google sheets data to the function to add to db
@@ -94,9 +95,9 @@ const sendRocketShip = async (couponData) => {
 		axios
 			.post(
 				// Production endpoint
-				"https://greycoupon-test.herokuapp.com/add/coupon",
+				// "https://greycoupon-test.herokuapp.com/add/coupon",
 				// Testing endpoint, REMEMBER TO COMMENT OUT
-				// "http://localhost:3333/add/coupon",
+				"http://localhost:3333/add/coupon",
 				coupon
 			)
 			.then((res) => {
@@ -277,37 +278,4 @@ const removeExpired = async (req, res) => {
 	}
 
 	res.status(status).send(response)
-	// //HIT DATABASE
-	// if (req.flags.success) {
-	// 	try {
-	// 		const { id: coupon_id } = await model.post(TABLE, req.body)
-
-	// 		await model.post("coupon_categories", {
-	// 			coupon_id,
-	// 			category_id: req.category_id,
-	// 		})
-	// 		if (req.featured.name.toString() !== "") {
-	// 			await model.post("coupon_featured", {
-	// 				coupon_id,
-	// 				featured_id: req.featured_id,
-	// 			})
-	// 			req.body.featured = req.featured.name
-	// 		}
-	// 		req.body.category = req.category.name
-	// 	} catch (err) {
-	// 		log_error("DATABASE ERROR", REQUEST_TYPE, err.code, TABLE, req.body)
-	// 		console.log(err.message)
-	// 		req.flags.success = false
-	// 		req.errors.database = err.code
-	// 	}
-	// }
-
-	// //PREPARE RESPONSE
-	// const status = req.flags.success ? 200 : 400
-	// const response = { success: req.flags.success }
-	// if (req.flags.success) response.data = req.body //return what was added
-	// if (req.flags.errors) response.errors = req.errors //return any errors
-
-	// //SEND RESPONSE
-	// res.status(status).send(response)
 }

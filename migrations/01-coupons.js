@@ -11,6 +11,7 @@ exports.up = (knex) => {
 		table.binary("image")
 		table.text("imageAddress")
 		table.date("expirationDate")
+		table.decimal("rating", 6, 2)
 		table.bigint("timestamp").notNullable()
 	})
 }

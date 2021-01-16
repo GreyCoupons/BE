@@ -1,5 +1,5 @@
 const coupons = {
-	required: ["title", "code", "category"],
+	required: ["title", "category"],
 	valid: new Set([
 		"title",
 		"code",
@@ -10,6 +10,7 @@ const coupons = {
 		"discount",
 		"timestamp",
 		"featured",
+		"rating",
 		"expirationDate",
 		"imageAddress",
 	]),
