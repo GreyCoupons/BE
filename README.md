@@ -14,3 +14,6 @@ No need to post anything, once the endpoint is reached, it commences the uploadi
 GET: /api/removeExpired
 
 Removes coupons that have expired by looking at their expiration dates.
+
+POST: /remove/coupon
+Removes coupons by given ID.
