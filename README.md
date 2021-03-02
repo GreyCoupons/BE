@@ -27,6 +27,9 @@ GET: /api/loadcoupons
 Loads coupons data from [Google Sheets](https://docs.google.com/spreadsheets/d/1x_PgDjeZ0UMk6wYGASQcnOFEMYXfRzWU22pnqNz-nP8/edit?usp=sharing).
 No need to post anything, once the endpoint is reached, it commences the uploading process from the Google Sheets Data to the database.
 
+GET: /get/featured
+Retrieves all featured coupons so they can be loaded to the Featured section on Front End.
+
 GET: /api/removeExpired
 
 Removes coupons that have expired by looking at their expiration dates.
