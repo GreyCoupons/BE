@@ -6,7 +6,7 @@ App that provides discounts to various amazon products.
 - [Links](#Links)
 - [Table](#Table)
 - [Routes](#Routes)
-- 
+
 ### Links
 
 Heroku Production Endpoint:
