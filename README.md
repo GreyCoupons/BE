@@ -1,8 +1,16 @@
 # Grey Coupons Back End
 App that provides discounts to various amazon products.
 
+### Links
+
 Heroku Production Endpoint:
 https://greycoupon-test.herokuapp.com
+
+Live Site:
+https://grey.coupons/ 
+
+Front End Repo:
+https://github.com/GreyCoupons/FE 
 
 ### Coupons
 | Column        |     Type      |    Required   |   Unique      |     Key       | 
