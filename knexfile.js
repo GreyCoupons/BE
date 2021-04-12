@@ -26,8 +26,7 @@ module.exports = {
 			user: "bsruhiqeavvuaj",
 			password:
 				"f537a1e39361d5f1dd98661b9a373b753470e858a7f69546612c3ce7e8548432",
-			ssl: {
-				rejectUnauthorized: false,
+			ssl: true
 			},
 		},
 		migrations: {
