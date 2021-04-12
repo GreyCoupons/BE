@@ -21,6 +21,7 @@ module.exports = {
 	production: {
 		client: process.env.DB_CLIENT || "pg",
 		connection: process.env.DATABASE_URL,
+		PGSSLMODE=require,
 		migrations: {
 			tableName: "knex_migrations",
 		},
