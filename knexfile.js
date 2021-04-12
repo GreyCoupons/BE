@@ -21,7 +21,6 @@ module.exports = {
 	production: {
 		client: process.env.DB_CLIENT || "pg",
 		connection: process.env.DATABASE_URL,
-		ssl: { rejectUnauthorized },
 		migrations: {
 			tableName: "knex_migrations",
 		},
